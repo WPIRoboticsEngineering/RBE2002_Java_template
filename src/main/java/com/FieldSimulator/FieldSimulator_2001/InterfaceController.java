@@ -78,5 +78,27 @@ public class InterfaceController extends Application {
         });
     }
 
+    public void sendLocation(){
+
+    }
+    public void sendRaisedHigh(){
+
+    }
+    public void sendLowered(){
+
+    }
+    public void FStart(){
+
+    }
+    public void FStop(){
+
+    }
+    public void start(){
+
+    }
+    public void stop(){
+        
+    }
+
 
 }
