@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.miglayout:miglayout-swing:4.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.miglayout/miglayout-swing/4.1/86d38cfc9dd550e9fa77a66652928fb3d9071400/miglayout-swing-4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.miglayout/miglayout-swing/4.1/2ef4c41340d06c17c84fd125f7f4a32ba13ce718/miglayout-swing-4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

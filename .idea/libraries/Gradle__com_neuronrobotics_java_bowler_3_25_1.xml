@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.neuronrobotics:java-bowler:3.25.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neuronrobotics/java-bowler/3.25.1/a92ee50a99c40e57b176debcf8501ad19544d373/java-bowler-3.25.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neuronrobotics/java-bowler/3.25.1/fe305ed3e98630ec7d5fd97f3ae3c8cc1db48c1f/java-bowler-3.25.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.hid4java:hid4java:0.5.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hid4java/hid4java/0.5.0/c07faeb44cfea17a9e4c19c3a6df9377c1fb89cb/hid4java-0.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hid4java/hid4java/0.5.0/58c531a8d0797c9b8ae3e80eaf8b5748c339474b/hid4java-0.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

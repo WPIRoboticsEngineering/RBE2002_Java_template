@@ -1,0 +1,3 @@
+[submodule "materialfx-material-design-for-javafx"]
+	path = /src/main/resources/materialfx-material-design-for-javafx
+	url = https://bitbucket.org/agix-material-fx/materialfx-material-design-for-javafx.git
