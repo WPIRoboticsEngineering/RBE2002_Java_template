@@ -22,8 +22,8 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="225">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -32,14 +32,33 @@
       <file leaf-file-name="FieldSimulator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/FieldSimulator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state relative-caret-position="-352">
+              <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2027#2028#0" expanded="true" />
-                <element signature="e#2056#2057#0" expanded="true" />
-                <element signature="e#2089#2090#0" expanded="true" />
-                <element signature="e#2116#2117#0" expanded="true" />
+                <element signature="e#2097#2098#0" expanded="true" />
+                <element signature="e#2126#2127#0" expanded="true" />
+                <element signature="e#2159#2160#0" expanded="true" />
+                <element signature="e#2186#2187#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InterfaceController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/InterfaceController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+              <folding>
+                <element signature="method#main#0;class#InterfaceController#0" expanded="false" />
+                <element signature="method#initialize#0;class#InterfaceController#0" expanded="false" />
+                <element signature="method#start#0;class#InterfaceController#0" expanded="false" />
+                <element signature="method#InterfaceController#0;class#InterfaceController#0" expanded="false" />
+                <element signature="method#connectToDevice#0;class#InterfaceController#0" expanded="false" />
+                <element signature="e#2275#2297#0" expanded="false" />
+                <marker date="1529369974000" expanded="false" signature="426:728" ph="..." />
+                <marker date="1529369974000" expanded="false" signature="729:1106" ph="..." />
               </folding>
             </state>
           </provider>
@@ -47,31 +66,14 @@
       </file>
       <file leaf-file-name="MainScreen.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/MainScreen.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="32" lean-forward="false" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
               <folding />
             </state>
           </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+          <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InterfaceController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/InterfaceController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="99" column="8" lean-forward="false" selection-start-line="99" selection-start-column="8" selection-end-line="99" selection-end-column="8" />
-              <folding>
-                <element signature="method#main#0;class#InterfaceController#0" expanded="false" />
-                <element signature="method#initialize#0;class#InterfaceController#0" expanded="false" />
-                <element signature="method#InterfaceController#0;class#InterfaceController#0" expanded="false" />
-                <element signature="method#connectToDevice#0;class#InterfaceController#0" expanded="false" />
-                <element signature="e#2278#2296#0" expanded="false" />
-                <marker date="1529365868000" expanded="false" signature="550:815" ph="..." />
-              </folding>
-            </state>
           </provider>
         </entry>
       </file>
@@ -96,6 +98,9 @@
       <find>dark</find>
       <find>lab</find>
       <find>text</find>
+      <find>get</find>
+      <find>write</find>
+      <find>send</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -276,8 +281,8 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4588032815000" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="821088248" />
+        <entry key="$PROJECT_DIR$" value="4588057504000" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="2635677602" />
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="975608090" />
         <entry key="$PROJECT_DIR$/settings.gradle" value="2311090799" />
       </map>
@@ -393,14 +398,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/resources/Interface.fxml" />
         <option value="$PROJECT_DIR$/src/main/resources/style/material.css" />
         <option value="$PROJECT_DIR$/src/main/resources/materialfx-material-design-for-javafx/material-fx-v0_3.css" />
         <option value="$PROJECT_DIR$/src/main/resources/fxml/test.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/FieldSimulator.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/resources/fxml/MainScreen.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/InterfaceController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/FieldSimulator.java" />
       </list>
     </option>
   </component>
@@ -637,12 +642,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1529344251228</updated>
-      <workItem from="1529344254932" duration="16834000" />
+      <workItem from="1529344254932" duration="19705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16834000" />
+    <option name="totallyTimeSpent" value="19705000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
@@ -687,7 +692,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -749,14 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neuronrobotics/SimplePacketComsJava/0.1.6/e261a6c14c00cb4822913800a703dbbacdb81042/SimplePacketComsJava-0.1.6-sources.jar!/edu/wpi/SimplePacketComs/phy/UDPSimplePacketComs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="113" column="12" lean-forward="true" selection-start-line="113" selection-start-column="12" selection-end-line="113" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/css/jfoenix-main-demo.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -800,50 +797,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neuronrobotics/SimplePacketComsJava/0.1.6/e261a6c14c00cb4822913800a703dbbacdb81042/SimplePacketComsJava-0.1.6-sources.jar!/edu/wpi/SimplePacketComs/phy/UDPSimplePacketComs.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/FieldSimulator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        <state relative-caret-position="1159">
+          <caret line="89" column="27" lean-forward="false" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2027#2028#0" expanded="true" />
-            <element signature="e#2056#2057#0" expanded="true" />
-            <element signature="e#2089#2090#0" expanded="true" />
-            <element signature="e#2116#2117#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/MainScreen.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="36" lean-forward="false" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neuronrobotics/SimplePacketComsJava/0.1.6/e261a6c14c00cb4822913800a703dbbacdb81042/SimplePacketComsJava-0.1.6-sources.jar!/edu/wpi/SimplePacketComs/AbstractSimpleComsDevice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="60" column="51" lean-forward="false" selection-start-line="60" selection-start-column="45" selection-end-line="60" selection-end-column="51" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/MainScreen.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="32" lean-forward="false" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/FieldSimulator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-352">
+          <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2097#2098#0" expanded="true" />
+            <element signature="e#2126#2127#0" expanded="true" />
+            <element signature="e#2159#2160#0" expanded="true" />
+            <element signature="e#2186#2187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/FieldSimulator/FieldSimulator_2001/InterfaceController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="99" column="8" lean-forward="false" selection-start-line="99" selection-start-column="8" selection-end-line="99" selection-end-column="8" />
+        <state relative-caret-position="458">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
           <folding>
             <element signature="method#main#0;class#InterfaceController#0" expanded="false" />
             <element signature="method#initialize#0;class#InterfaceController#0" expanded="false" />
+            <element signature="method#start#0;class#InterfaceController#0" expanded="false" />
             <element signature="method#InterfaceController#0;class#InterfaceController#0" expanded="false" />
             <element signature="method#connectToDevice#0;class#InterfaceController#0" expanded="false" />
-            <element signature="e#2278#2296#0" expanded="false" />
-            <marker date="1529365868000" expanded="false" signature="550:815" ph="..." />
+            <element signature="e#2275#2297#0" expanded="false" />
+            <marker date="1529369974000" expanded="false" signature="426:728" ph="..." />
+            <marker date="1529369974000" expanded="false" signature="729:1106" ph="..." />
           </folding>
         </state>
       </provider>

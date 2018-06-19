@@ -27,6 +27,7 @@ public class FieldSimulator extends UDPSimplePacketComs {
             } else {
                 interfaceController.heartBeat.setSelected(true);
             }
+            interfaceController.response.appendText(String.valueOf(data));
 
         });
     }
@@ -49,10 +50,9 @@ public class FieldSimulator extends UDPSimplePacketComs {
     }
 
     public static List<FieldSimulator> get() throws Exception {
-        if(interfaceController.teamName.getText() == null){
+        if (interfaceController.teamName.getText() == null) {
             return get("*");
-        }
-        else{
+        } else {
             return get(interfaceController.teamName.getText());
         }
     }
@@ -65,5 +65,11 @@ public class FieldSimulator extends UDPSimplePacketComs {
         return data;
     }
 
+    public void setPacketIndex(int index, double value) {
+        if (index >= 15) {
+            return;
+        }
+        status[index] = value;
+    }
 }
 
