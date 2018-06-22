@@ -50,11 +50,7 @@ public class FieldSimulator extends UDPSimplePacketComs {
     }
 
     public static List<FieldSimulator> get() throws Exception {
-        if (interfaceController.teamName.getText() == null) {
             return get("*");
-        } else {
-            return get(interfaceController.teamName.getText());
-        }
     }
 
     public double[] getStatus() {
@@ -66,9 +62,6 @@ public class FieldSimulator extends UDPSimplePacketComs {
     }
 
     public void setPacketIndex(int index, double value) {
-        if (index >= 15) {
-            return;
-        }
         status[index] = value;
     }
 }
