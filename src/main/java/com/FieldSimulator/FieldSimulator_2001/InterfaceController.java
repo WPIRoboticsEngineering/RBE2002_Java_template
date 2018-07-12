@@ -93,7 +93,7 @@ public class InterfaceController {
 			new Thread(() -> {
 				try {
 					setFieldSim(WarehouseRobot.get(teamName.getText()).get(0));
-					getFieldSim().setReadTimeout(1000);
+					//getFieldSim().setReadTimeout(1000);
 					if (getFieldSim() != null) {
 						getFieldSim().addEvent(Integer.valueOf(2012), () -> {
 							WarehouseRobotStatus tmp = getFieldSim().getStatus();
