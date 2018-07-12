@@ -11,7 +11,7 @@ import javafx.event.ActionEvent;
 
 public class InterfaceController {
 
-	WarehouseRobot fieldSim = null;
+	private static WarehouseRobot fieldSim = null;
 	WarehouseRobotStatus status ;
 	ObservableList<String> Weights = FXCollections.observableArrayList("Aluminum", "Plastic");
 	ObservableList<String> Sides = FXCollections.observableArrayList("25", "45");
@@ -88,15 +88,15 @@ public class InterfaceController {
 	}
 
 	public void connectToDevice() {
-		if (fieldSim == null) {
+		if (getFieldSim() == null) {
 			connectToDevice.setDisable(true);
 			new Thread(() -> {
 				try {
-					fieldSim = WarehouseRobot.get(teamName.getText()).get(0);
-					fieldSim.setReadTimeout(1000);
-					if (fieldSim != null) {
-						fieldSim.addEvent(Integer.valueOf(2012), () -> {
-							WarehouseRobotStatus tmp = fieldSim.getStatus();
+					setFieldSim(WarehouseRobot.get(teamName.getText()).get(0));
+					getFieldSim().setReadTimeout(1000);
+					if (getFieldSim() != null) {
+						getFieldSim().addEvent(Integer.valueOf(2012), () -> {
+							WarehouseRobotStatus tmp = getFieldSim().getStatus();
 							if(status!=tmp) {
 								status=tmp;
 								System.out.println(" New Status = "+status.name());
@@ -118,7 +118,7 @@ public class InterfaceController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if (fieldSim == null)
+				if (getFieldSim() == null)
 					Platform.runLater(() -> {
 						connectToDevice.setDisable(false);
 					});
@@ -138,8 +138,8 @@ public class InterfaceController {
 			}
 			double angle = Double.parseDouble(choiceBoxSide.getSelectionModel().getSelectedItem());
 			double position = Double.parseDouble(choiceBoxPos.getSelectionModel().getSelectedItem());
-			if (fieldSim != null)
-				fieldSim.pickOrder(material, angle, position);
+			if (getFieldSim() != null)
+				getFieldSim().pickOrder(material, angle, position);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
@@ -159,20 +159,28 @@ public class InterfaceController {
 	@FXML
 	void start(ActionEvent event) {
 		System.out.println("start");
-		if (fieldSim != null)
-			fieldSim.clearFaults();
+		if (getFieldSim() != null)
+			getFieldSim().clearFaults();
 	}
 
 	@FXML
 	void stop(ActionEvent event) {
 		System.out.println("stop");
-		if (fieldSim != null)
-			fieldSim.estop();
+		if (getFieldSim() != null)
+			getFieldSim().estop();
 	}
 
 	@FXML
 	void onConnect(ActionEvent event) {
 		System.out.println("onConnect");
 		connectToDevice();
+	}
+
+	public static WarehouseRobot getFieldSim() {
+		return fieldSim;
+	}
+
+	public static void setFieldSim(WarehouseRobot fieldSim) {
+		InterfaceController.fieldSim = fieldSim;
 	}
 }

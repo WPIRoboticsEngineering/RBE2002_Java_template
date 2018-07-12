@@ -2,10 +2,12 @@ package com.FieldSimulator.FieldSimulator_2001;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main  extends Application {
 
@@ -22,6 +24,13 @@ public class Main  extends Application {
 
 		primaryStage.show();
 		primaryStage.getScene().setRoot(root);
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		    @Override
+		    public void handle(WindowEvent event) {
+		    	if(InterfaceController.getFieldSim()!=null)
+		    		InterfaceController.getFieldSim().disconnect();
+		    }
+		});
 	}
 
 }
