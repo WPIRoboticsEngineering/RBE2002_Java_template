@@ -6,12 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import edu.wpi.SimplePacketComs.device.warehouse.WarehouseRobot;
-
+import edu.wpi.SimplePacketComs.device.warehouse.WarehouseRobotStatus;
 import javafx.event.ActionEvent;
 
 public class InterfaceController {
 
 	WarehouseRobot fieldSim = null;
+	WarehouseRobotStatus status ;
 	ObservableList<String> Weights = FXCollections.observableArrayList("Aluminum", "Plastic");
 	ObservableList<String> Sides = FXCollections.observableArrayList("25", "45");
 	ObservableList<String> Pos = FXCollections.observableArrayList("1", "2");
@@ -92,9 +93,17 @@ public class InterfaceController {
 			new Thread(() -> {
 				try {
 					fieldSim = WarehouseRobot.get(teamName.getText()).get(0);
+					fieldSim.setReadTimeout(1000);
 					if (fieldSim != null) {
-						fieldSim.addEvent(Integer.valueOf(1936), () -> {
-
+						fieldSim.addEvent(Integer.valueOf(2012), () -> {
+							WarehouseRobotStatus tmp = fieldSim.getStatus();
+							if(status!=tmp) {
+								status=tmp;
+								System.out.println(" New Status = "+status.name());
+								Platform.runLater(() -> {
+									heartBeat.setText(status.name());
+								});
+							}
 						});
 
 						Platform.runLater(() -> {
