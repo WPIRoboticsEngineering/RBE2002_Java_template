@@ -4,35 +4,26 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.FieldSimulator.FieldSimulator_2001.InterfaceController">
+<AnchorPane prefHeight="332.0" prefWidth="1142.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.FieldSimulator.FieldSimulator_2001.InterfaceController">
    <children>
-      <Button id="connect" fx:id="connectToDevice" layoutX="300.0" layoutY="24.0" mnemonicParsing="false" onAction="#onConnect" prefHeight="38.0" prefWidth="76.0" styleClass="button-raised" text="Connect" />
+      <Button id="connect" fx:id="connectToDevice" layoutX="325.0" layoutY="24.0" mnemonicParsing="false" onAction="#onConnect" prefHeight="38.0" prefWidth="164.0" styleClass="button-raised" text="Connect" />
 
-      <Button id="start" fx:id="start" layoutX="45.0" layoutY="120.0" mnemonicParsing="false" onAction="#start" prefHeight="40.0" prefWidth="164.0" styleClass="button-raised" text="Start" />
-      <Button id="stop" fx:id="stop" layoutX="230.0" layoutY="120.0" mnemonicParsing="false" onAction="#stop" prefHeight="40.0" prefWidth="164.0" styleClass="button-raised" text="Stop" />
-      <Button id="Placed low enough" fx:id="PLE" layoutX="45.0" layoutY="171.0" mnemonicParsing="false" onAction="#sendLowered" prefHeight="40.0" prefWidth="164.0" styleClass="button-raised" text="Pin Engaged">
-         <tooltip>
-            <Tooltip text="Proceed with Release" />
-         </tooltip></Button>
-      <Button id="Raised high enough" fx:id="RHE" layoutX="230.0" layoutY="171.0" mnemonicParsing="false" onAction="#sendRaisedHigh" prefHeight="40.0" prefWidth="164.0" styleClass="button-raised" text="Pin Clear">
-         <tooltip>
-            <Tooltip text="Proceed with Removal" />
-         </tooltip></Button>
+      <Button id="start" fx:id="start" layoutX="45.0" layoutY="120.0" mnemonicParsing="false" onAction="#start" prefHeight="40.0" prefWidth="164.0" styleClass="button-raised" text="Clear Faults" />
+      <Button id="stop" fx:id="stop" layoutX="230.0" layoutY="120.0" mnemonicParsing="false" onAction="#stop" prefHeight="40.0" prefWidth="164.0" styleClass="button-raised" text="E-Stop" />
       <Label layoutX="14.0" layoutY="24.0" prefHeight="38.0" prefWidth="76.0" text="TeamName" />
-      <TextField id="teamName" fx:id="teamName" layoutX="91.0" layoutY="30.0" prefHeight="27.0" prefWidth="164.0" />
-      <TextArea fx:id="response" layoutX="10.0" layoutY="400.0" prefHeight="330.0" prefWidth="980.0" />
-      <Button id="send" fx:id="send" layoutX="850.0" layoutY="330.0" mnemonicParsing="false" onAction="#sendLocation" prefHeight="40.0" prefWidth="110.0" styleClass="button-raised" text="Send" />
-      <RadioButton fx:id="heartBeat" layoutX="713.0" layoutY="34.0" mnemonicParsing="false" text="Heart Beat" />
+      <TextField id="teamName" fx:id="teamName" layoutX="127.0" layoutY="31.0" prefHeight="27.0" prefWidth="164.0" />
+      <Button id="send" fx:id="send" layoutX="651.0" layoutY="190.0" mnemonicParsing="false" onAction="#sendLocation" prefHeight="40.0" prefWidth="309.0" styleClass="button-raised" text="Send Pick Order" />
+      <RadioButton fx:id="heartBeat" layoutX="727.0" layoutY="35.0" mnemonicParsing="false" text="Heart Beat" />
       <ChoiceBox id="choiceBoxWeight" fx:id="choiceBoxWeight" layoutX="478.0" layoutY="144.0" prefWidth="150.0" />
       <ChoiceBox id="choiceBoxSide" fx:id="choiceBoxSide" layoutX="650.0" layoutY="144.0" prefWidth="150.0" />
       <ChoiceBox id="choiceBoxPos" fx:id="choiceBoxPos" layoutX="810.0" layoutY="144.0" prefWidth="150.0" />
       <Label layoutX="528.0" layoutY="120.0" text="Material" />
       <Label layoutX="708.0" layoutY="120.0" text="Angle" />
       <Label layoutX="860.0" layoutY="120.0" text="Position" />
+      <Label layoutX="643.0" layoutY="36.0" text="Status:" />
+      <Button fx:id="approveButton" layoutX="45.0" layoutY="170.0" mnemonicParsing="false" onAction="#onApprove" prefHeight="40.0" prefWidth="164.0" text="Approve Pickup" />
    </children>
 </AnchorPane>

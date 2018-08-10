@@ -27,8 +27,8 @@ public class Main  extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 		    @Override
 		    public void handle(WindowEvent event) {
-		    	if(InterfaceController.getFieldSim()!=null)
-		    		InterfaceController.getFieldSim().disconnect();
+		    	if(InterfaceController.getRobot()!=null)
+		    		InterfaceController.getRobot().disconnect();
 		    }
 		});
 	}
