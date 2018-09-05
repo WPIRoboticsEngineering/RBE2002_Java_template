@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="332.0" prefWidth="1142.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.FieldSimulator.FieldSimulator_2001.InterfaceController">
+<AnchorPane prefHeight="332.0" prefWidth="1142.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.rbe.rbe2001.fieldsimulator.gui.InterfaceController">
    <children>
       <Button id="connect" fx:id="connectToDevice" layoutX="325.0" layoutY="24.0" mnemonicParsing="false" onAction="#onConnect" prefHeight="38.0" prefWidth="164.0" styleClass="button-raised" text="Connect" />
 

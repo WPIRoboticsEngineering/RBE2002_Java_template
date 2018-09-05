@@ -4,19 +4,14 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = "com.FieldSimulator.FieldSimulator_2001.Main"
+mainClassName = "edu.wpi.rbe.rbe2001.fieldsimulator.gui.Main"
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/staging/'
-    }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.neuronrobotics:SimplePacketComsJava:0.6.0"
+    implementation "com.neuronrobotics:SimplePacketComsJava:0.6.0"
 }
 
 task wrapper(type: Wrapper) {

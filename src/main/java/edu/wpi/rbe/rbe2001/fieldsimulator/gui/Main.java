@@ -1,4 +1,4 @@
-package com.FieldSimulator.FieldSimulator_2001;
+package edu.wpi.rbe.rbe2001.fieldsimulator.gui;
 import java.io.IOException;
 
 import javafx.application.Application;
