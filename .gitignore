@@ -14,3 +14,7 @@ gradle-app.setting
 *.iml
 *.ipr
 out/
+/bin/
+/.classpath
+/.project
+/.settings
