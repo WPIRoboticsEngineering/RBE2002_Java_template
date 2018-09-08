@@ -1,5 +1,7 @@
 package edu.wpi.rbe.rbe2001.fieldsimulator.gui;
 
+import edu.wpi.rbe.rbe2001.fieldsimulator.robot.WarehouseRobot;
+import edu.wpi.rbe.rbe2001.fieldsimulator.robot.WarehouseRobotStatus;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,8 +12,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import edu.wpi.SimplePacketComs.device.warehouse.WarehouseRobot;
-import edu.wpi.SimplePacketComs.device.warehouse.WarehouseRobotStatus;
 
 public class InterfaceController {
 
