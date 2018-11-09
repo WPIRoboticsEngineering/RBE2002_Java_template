@@ -46,7 +46,7 @@ public class FireFighterRobot extends UdpDevice  {
 		HashSet<InetAddress> addresses = UDPSimplePacketComs.getAllAddresses(name);
 		ArrayList<FireFighterRobot> robots = new ArrayList<>();
 		if (addresses.size() < 1) {
-			System.out.println("No WarehouseRobot found named "+name);
+			System.out.println("No "+FireFighterRobot.class.getSimpleName()+" found named "+name);
 			return robots;
 		}
 		for (InetAddress add : addresses) {
