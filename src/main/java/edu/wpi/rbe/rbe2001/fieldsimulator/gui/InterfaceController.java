@@ -1,7 +1,7 @@
 package edu.wpi.rbe.rbe2001.fieldsimulator.gui;
 
-import edu.wpi.rbe.rbe2001.fieldsimulator.robot.WarehouseRobot;
-import edu.wpi.rbe.rbe2001.fieldsimulator.robot.WarehouseRobotStatus;
+import edu.wpi.rbe.rbe2001.fieldsimulator.robot.FireFighterRobot;
+import edu.wpi.rbe.rbe2001.fieldsimulator.robot.FireFighterRobot;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +14,8 @@ import javafx.scene.control.TextField;
 
 public class InterfaceController {
 
-	private static WarehouseRobot fieldSim;
+	private static FireFighterRobot fieldSim;
 
-	private WarehouseRobotStatus status = WarehouseRobotStatus.Fault_E_Stop_pressed;
 	private ObservableList<String> weights = FXCollections.observableArrayList("Aluminum", "Plastic");
 	private ObservableList<String> sides = FXCollections.observableArrayList("25", "45");
 	private ObservableList<String> pos = FXCollections.observableArrayList("1", "2");
@@ -90,29 +89,9 @@ public class InterfaceController {
 			connectToDevice.setDisable(true);
 			new Thread(() -> {
 				try {
-					setFieldSim(WarehouseRobot.get(teamName.getText()).get(0));
+					setFieldSim(FireFighterRobot.get(teamName.getText()).get(0));
 					// getFieldSim().setReadTimeout(1000);
 					if (getRobot() != null) {
-						getRobot().addEvent(2012, () -> {
-							WarehouseRobotStatus tmp = getRobot().getStatus();
-							if (status != tmp) {
-								status = tmp;
-								System.out.println(" New Status = " + status.name());
-								Platform.runLater(() -> {
-									heartBeat.setText(status.name());
-								});
-								Platform.runLater(() -> {
-									if (status == WarehouseRobotStatus.Waiting_for_approval_to_pickup
-											|| status == WarehouseRobotStatus.Waiting_for_approval_to_dropoff)
-										approveButton.setDisable(false);
-									else
-										approveButton.setDisable(true);
-
-								});
-
-							}
-						});
-
 						Platform.runLater(() -> {
 							start.setDisable(false);
 							stop.setDisable(false);
@@ -133,56 +112,16 @@ public class InterfaceController {
 	}
 
 	@FXML
-	void onApprove() {
-		System.out.println("approve");
-		if (getRobot() != null) {
-			getRobot().approve();
-		}
-	}
-
-	@FXML
-	void sendLocation() {
-		System.out.println("sendLocation");
-		double material;
-		if (choiceBoxWeight.getSelectionModel().getSelectedItem().contains(weights.get(0))) {
-			material = 1;
-		} else {
-			material = 2;
-		}
-		double angle = Double.parseDouble(choiceBoxSide.getSelectionModel().getSelectedItem());
-		double position = Double.parseDouble(choiceBoxPos.getSelectionModel().getSelectedItem());
-		if (getRobot() != null) {
-			getRobot().pickOrder(material, angle, position);
-		}
-	}
-
-	@FXML
-	void start() {
-		System.out.println("start");
-		if (getRobot() != null) {
-			getRobot().clearFaults();
-		}
-	}
-
-	@FXML
-	void stop() {
-		System.out.println("stop");
-		if (getRobot() != null) {
-			getRobot().estop();
-		}
-	}
-
-	@FXML
 	void onConnect() {
 		System.out.println("onConnect");
 		connectToDevice();
 	}
 
-	public static WarehouseRobot getRobot() {
+	public static FireFighterRobot getRobot() {
 		return fieldSim;
 	}
 
-	private static void setFieldSim(WarehouseRobot fieldSim) {
+	private static void setFieldSim(FireFighterRobot fieldSim) {
 		fieldSim.setReadTimeout(1000);
 		InterfaceController.fieldSim = fieldSim;
 	}

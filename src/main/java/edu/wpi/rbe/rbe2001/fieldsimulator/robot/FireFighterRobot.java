@@ -11,7 +11,7 @@ import edu.wpi.SimplePacketComs.PacketType;
 import edu.wpi.SimplePacketComs.device.UdpDevice;
 import edu.wpi.SimplePacketComs.phy.UDPSimplePacketComs;
 
-public class WarehouseRobot extends UdpDevice  {
+public class FireFighterRobot extends UdpDevice  {
 	private PacketType estop = new BytePacketType(1989, 64);
 	private PacketType getStatus = new BytePacketType(2012, 64);
 	private PacketType clearFaults = new BytePacketType(1871, 64);
@@ -20,7 +20,7 @@ public class WarehouseRobot extends UdpDevice  {
 	private byte[] status = new byte[1];
 	private double[] pickOrderData = new double[3];
 	private double[] driveStatus = new double[1];
-	private WarehouseRobot(InetAddress add) throws Exception {
+	private FireFighterRobot(InetAddress add) throws Exception {
 		super(add);
 		
 		for (PacketType pt : Arrays.asList(clearFaults, pickOrder, getStatus, approve,estop)) {
@@ -42,23 +42,23 @@ public class WarehouseRobot extends UdpDevice  {
 		
 		
 	}
-	public static List<WarehouseRobot> get(String name) throws Exception {
+	public static List<FireFighterRobot> get(String name) throws Exception {
 		HashSet<InetAddress> addresses = UDPSimplePacketComs.getAllAddresses(name);
-		ArrayList<WarehouseRobot> robots = new ArrayList<>();
+		ArrayList<FireFighterRobot> robots = new ArrayList<>();
 		if (addresses.size() < 1) {
 			System.out.println("No WarehouseRobot found named "+name);
 			return robots;
 		}
 		for (InetAddress add : addresses) {
 			System.out.println("Got " + add.getHostAddress());
-			WarehouseRobot e = new WarehouseRobot(add);
+			FireFighterRobot e = new FireFighterRobot(add);
 			e.connect();
 			robots.add(e);
 		}
 		return robots;
 	}
 	
-	public static List<WarehouseRobot> get() throws Exception {
+	public static List<FireFighterRobot> get() throws Exception {
 		return get("Warehouse*");
 	}
 
@@ -84,10 +84,7 @@ public class WarehouseRobot extends UdpDevice  {
 
 	}
 
-	public WarehouseRobotStatus getStatus() {
-		return WarehouseRobotStatus.fromValue(status[0]);
-	}
-	
+
 	public void clearFaults() {
 		clearFaults.oneShotMode();
 
