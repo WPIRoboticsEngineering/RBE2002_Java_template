@@ -12,7 +12,7 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainScreen.fxml"));
     primaryStage.setTitle("Fire Fighting Robot");
-    root.getStylesheets().add("/materialfx-material-design-for-javafx/material-fx-v0_3.css");
+    //root.getStylesheets().add("/materialfx-material-design-for-javafx/material-fx-v0_3.css");
     primaryStage.setScene(new Scene(root, 811, 665));
     //primaryStage.setResizable(false);
 

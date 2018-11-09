@@ -162,7 +162,7 @@ public class InterfaceController {
 					}
 				} catch (Exception ex) {
 					//ex.printStackTrace();
-					Platform.runLater(() -> robotName.setText("None Found!"));
+					Platform.runLater(() -> robotName.setText(teamName.getText()+" Not Found!"));
 				}
 				if (getRobot() == null) {
 					Platform.runLater(() -> connectToDevice.setDisable(false));
