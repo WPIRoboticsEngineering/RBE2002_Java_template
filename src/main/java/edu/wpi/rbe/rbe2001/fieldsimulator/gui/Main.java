@@ -15,13 +15,13 @@ public class Main extends Application {
     //root.getStylesheets().add("/materialfx-material-design-for-javafx/material-fx-v0_3.css");
     primaryStage.setScene(new Scene(root, 811, 665));
     //primaryStage.setResizable(false);
-
+    
     primaryStage.show();
     primaryStage.getScene().setRoot(root);
     primaryStage.setOnCloseRequest(event -> {
-      if (InterfaceController.getRobot() != null) {
-        InterfaceController.getRobot().disconnect();
-      }
+ 
+        InterfaceController.disconnect();
+      
     });
   }
 

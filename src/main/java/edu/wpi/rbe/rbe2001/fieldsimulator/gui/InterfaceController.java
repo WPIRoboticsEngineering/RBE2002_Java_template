@@ -1,5 +1,7 @@
 package edu.wpi.rbe.rbe2001.fieldsimulator.gui;
 
+import java.text.DecimalFormat;
+
 import edu.wpi.rbe.rbe2001.fieldsimulator.robot.FireFighterRobot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -10,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 public class InterfaceController {
-
+	static  InterfaceController me;
 	private static FireFighterRobot fieldSim;
 
     @FXML // fx:id="robotName"
@@ -92,9 +94,14 @@ public class InterfaceController {
 
     @FXML
     private Label position;
+	private double datas[];
+	DecimalFormat formatter = new DecimalFormat();
 
 	@FXML
 	private void initialize() {
+		me=this;
+		formatter.setMaximumFractionDigits(3);
+
         assert connectTab != null : "fx:id=\"connectTab\" was not injected: check your FXML file 'MainScreen.fxml'.";
         assert teamName != null : "fx:id=\"teamName\" was not injected: check your FXML file 'MainScreen.fxml'.";
         assert connectToDevice != null : "fx:id=\"connectToDevice\" was not injected: check your FXML file 'MainScreen.fxml'.";
@@ -121,7 +128,7 @@ public class InterfaceController {
         assert setpoint != null : "fx:id=\"setpoint\" was not injected: check your FXML file 'MainScreen.fxml'.";
         assert setSetpoint != null : "fx:id=\"setSetpoint\" was not injected: check your FXML file 'MainScreen.fxml'.";
         assert position != null : "fx:id=\"position\" was not injected: check your FXML file 'MainScreen.fxml'.";
-
+        teamName.setText("IMU-Team21");
 
 //		choiceBoxWeight.setValue(weights.get(0));
 //		choiceBoxWeight.setItems(weights);
@@ -146,6 +153,7 @@ public class InterfaceController {
 			new Thread(() -> {
 				try {
 					setFieldSim(FireFighterRobot.get(teamName.getText()).get(0));
+					Thread.sleep(1000);
 					// getFieldSim().setReadTimeout(1000);
 					if (getRobot() != null) {
 						Platform.runLater(() -> {
@@ -187,12 +195,43 @@ public class InterfaceController {
     void onSetSetpoint() {
 
     }
-	public static FireFighterRobot getRobot() {
+	public  FireFighterRobot getRobot() {
 		return fieldSim;
 	}
 
-	private static void setFieldSim(FireFighterRobot fieldSim) {
+	private  void setFieldSim(FireFighterRobot fieldSim) {
 		fieldSim.setReadTimeout(1000);
 		InterfaceController.fieldSim = fieldSim;
+		fieldSim.addEvent(1804,()->{
+            datas = new double[12];
+            fieldSim.readFloats(1804, datas);
+        	Platform.runLater(() -> {
+        		int base=0;
+        		accelx.setText(formatter.format(datas[base + 0]));
+        		accely.setText(formatter.format(datas[base + 1]));
+        		accelz.setText(formatter.format(datas[base + 2]));
+        		base=3;
+        		gyrox.setText(formatter.format(datas[base + 0]));
+        		gyroy.setText(formatter.format(datas[base + 1]));
+        		gyroz.setText(formatter.format(datas[base + 2]));
+        		base=6;
+        		gravx.setText(formatter.format(datas[base + 0]));
+        		gravy.setText(formatter.format(datas[base + 1]));
+        		gravz.setText(formatter.format(datas[base + 2]));
+        		base=9;
+        		eulx.setText(formatter.format(datas[base + 0]));
+        		euly.setText(formatter.format(datas[base + 1]));
+        		eulz.setText(formatter.format(datas[base + 2]));
+        		
+			});
+        });
+		
+		
+		
+	}
+
+	public static void disconnect() {
+		if(me.getRobot()!=null)
+			me.getRobot().disconnect();
 	}
 }
