@@ -13,8 +13,8 @@ public class Main extends Application {
     Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainScreen.fxml"));
     primaryStage.setTitle("Fire Fighting Robot");
     root.getStylesheets().add("/materialfx-material-design-for-javafx/material-fx-v0_3.css");
-    primaryStage.setScene(new Scene(root, 1150, 340));
-    primaryStage.setResizable(false);
+    primaryStage.setScene(new Scene(root, 811, 665));
+    //primaryStage.setResizable(false);
 
     primaryStage.show();
     primaryStage.getScene().setRoot(root);
