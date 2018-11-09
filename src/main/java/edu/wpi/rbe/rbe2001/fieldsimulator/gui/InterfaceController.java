@@ -149,7 +149,9 @@ public class InterfaceController {
 					// getFieldSim().setReadTimeout(1000);
 					if (getRobot() != null) {
 						Platform.runLater(() -> {
-							
+							robotName.setText(getRobot().getName());
+							imutab.setDisable(false);
+							pidTab.setDisable(false);
 //							start.setDisable(false);
 //							stop.setDisable(false);
 //							// PLE.setDisable(false);
@@ -164,8 +166,6 @@ public class InterfaceController {
 				}
 				if (getRobot() == null) {
 					Platform.runLater(() -> connectToDevice.setDisable(false));
-				}else {
-					Platform.runLater(() -> robotName.setText(getRobot().getName()));
 				}
 			}).start();
 		}
