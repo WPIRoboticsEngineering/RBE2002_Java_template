@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -113,8 +114,10 @@ public class InterfaceController {
 	private double datas[] = null;
 	private double piddata[] = null;
 	private double pidConfig[] = null;
-	DecimalFormat formatter = new DecimalFormat();
-
+	private DecimalFormat formatter = new DecimalFormat();
+	private double start  =((double)System.currentTimeMillis())/1000.0;
+	private long lastPos;
+	private long lastSet;
 	@FXML
 	private void initialize() {
 		me = this;
@@ -166,10 +169,11 @@ public class InterfaceController {
 		
 		for(int i=0;i<2;i++) {
 			Series e = new XYChart.Series();
+			
 			pidGraphSeries.add(i,e);
 			pidGraph.getData().add(e);
 		}
-
+		pidGraph.getXAxis().autoRangingProperty().set(true);
 	}
 
 	private void connectToDevice() {
@@ -302,11 +306,19 @@ public class InterfaceController {
 	private void updateGraph(double pos,double set) {
 		if(pidGraphSeries.size()==0)
 			return;
-		pidGraphSeries.get(0).getData().add(new XYChart.Data( ((double)System.currentTimeMillis())/1000.0, pos));
-		//pidGraphSeries.get(1).getData().add(new XYChart.Data( ((double)System.currentTimeMillis())/1000.0, set));
-		for(Series s:pidGraphSeries) {
-			
-			while(s.getData().size()>100) {
+		double now  =((double)System.currentTimeMillis())/1000.0-start;
+		long thispos = (long) pos;
+		long thisSet=(long) set;
+		if(thispos != lastPos || thisSet!=lastSet) {
+			pidGraphSeries.get(0).getData().add(new XYChart.Data( now-0.0001, lastPos));
+			pidGraphSeries.get(1).getData().add(new XYChart.Data( now-0.0001, lastSet));
+			lastSet=thisSet;
+			lastPos=thispos;
+			pidGraphSeries.get(0).getData().add(new XYChart.Data( now, pos));
+			pidGraphSeries.get(1).getData().add(new XYChart.Data( now, set));
+		}
+		for(Series s:pidGraphSeries) {		
+			while(s.getData().size()>500) {
 				s.getData().remove(0);
 			}			
 		}

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -140,12 +139,12 @@
                             <RowConstraints minHeight="10.0" prefHeight="457.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <LineChart fx:id="pidGraph" animated="false" title="PID Setpoint and Position" verticalZeroLineVisible="false" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                              <LineChart fx:id="pidGraph" alternativeRowFillVisible="false" animated="false" createSymbols="false" focusTraversable="true" horizontalZeroLineVisible="false" legendVisible="false" title="PID Setpoint and Position" verticalGridLinesVisible="false" verticalZeroLineVisible="false" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" />
+                                  <NumberAxis side="BOTTOM" autoRanging="true" forceZeroInRange="false" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis side="LEFT" />
+                                  <NumberAxis side="LEFT"  forceZeroInRange="true" />
                                 </yAxis>
                               </LineChart>
                               <AnchorPane prefHeight="511.0" prefWidth="104.0">
