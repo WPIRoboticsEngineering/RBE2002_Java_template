@@ -335,7 +335,10 @@ public class InterfaceController {
 				System.out.println("Set to channel "+newVal);
 				currentIndex=newVal.intValue();
 				fieldSim.updatConfig();
-
+				for(Series s:pidGraphSeries) {		
+						s.getData().clear();
+								
+				}
 			});
 		}
 	}
