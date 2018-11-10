@@ -16,6 +16,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class InterfaceController {
 	static InterfaceController me;
@@ -76,8 +84,9 @@ public class InterfaceController {
 	private Tab pidTab;
 
 	@FXML
-	private LineChart<Double, Integer> pidGraph;
-
+	private LineChart<Double, Double> pidGraph;
+	private ArrayList<XYChart.Series> pidGraphSeries = new ArrayList<>();
+	
 	@FXML
 	private TextField kp;
 
@@ -154,6 +163,13 @@ public class InterfaceController {
 		// // RHE.setDisable(true);
 		// send.setDisable(true);
 		// approveButton.setDisable(true);
+		
+		for(int i=0;i<2;i++) {
+			Series e = new XYChart.Series();
+			pidGraphSeries.add(i,e);
+			pidGraph.getData().add(e);
+		}
+
 	}
 
 	private void connectToDevice() {
@@ -249,10 +265,13 @@ public class InterfaceController {
 					numPIDControllers=myNumPid;
 					setUpPid();
 				}
-				String positionVal = formatter.format(piddata[1+currentIndex*2+1]);
+				double pos = piddata[1+currentIndex*2+1];
+				double set = piddata[1+currentIndex*2+0];
+				String positionVal = formatter.format(pos);
 				//System.out.println(positionVal+" "+DoubleStream.of(piddata).boxed().collect(Collectors.toCollection(ArrayList::new)));
 ;
 				Platform.runLater(() ->position.setText(positionVal ));
+				Platform.runLater(() ->updateGraph(pos, set));
 				
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -264,7 +283,7 @@ public class InterfaceController {
 					pidConfig = new double[3*2];
 				fieldSim.readFloats(1857, pidConfig);
 				
-				System.out.println(" "+DoubleStream.of(pidConfig).boxed().collect(Collectors.toCollection(ArrayList::new)));
+				//System.out.println(" "+DoubleStream.of(pidConfig).boxed().collect(Collectors.toCollection(ArrayList::new)));
 
 				Platform.runLater(() ->kp.setText(formatter.format(pidConfig[currentIndex*3+0]) ));
 				
@@ -279,6 +298,19 @@ public class InterfaceController {
 		fieldSim.updatConfig();
 
 	}
+	@SuppressWarnings("unchecked")
+	private void updateGraph(double pos,double set) {
+		if(pidGraphSeries.size()==0)
+			return;
+		pidGraphSeries.get(0).getData().add(new XYChart.Data( ((double)System.currentTimeMillis())/1000.0, pos));
+		//pidGraphSeries.get(1).getData().add(new XYChart.Data( ((double)System.currentTimeMillis())/1000.0, set));
+		for(Series s:pidGraphSeries) {
+			
+			while(s.getData().size()>100) {
+				s.getData().remove(0);
+			}			
+		}
+	}
 	
 	private void setUpPid() {
 		System.out.println("PID controller has " + fieldSim.getNumPid() + " controllers");
@@ -287,11 +319,11 @@ public class InterfaceController {
 				int index = i;
 				Platform.runLater(() -> pidChannel.getItems().add(index));
 			}
-			pidChannel.getSelectionModel().select(0);
 			pidChannel.getSelectionModel().selectedIndexProperty().addListener((obs,old,newVal)->{
 				System.out.println("Set to channel "+newVal);
 				currentIndex=newVal.intValue();
 				fieldSim.updatConfig();
+
 			});
 		}
 	}

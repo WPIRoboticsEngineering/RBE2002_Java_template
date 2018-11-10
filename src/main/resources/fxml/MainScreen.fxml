@@ -142,7 +142,7 @@
                            <children>
                               <LineChart fx:id="pidGraph" animated="false" title="PID Setpoint and Position" verticalZeroLineVisible="false" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                 <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
+                                  <NumberAxis side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis side="LEFT" />
