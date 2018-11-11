@@ -126,7 +126,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="pidTab" closable="false" text="PID Control">
+            <Tab fx:id="pidTab" closable="false" disable="true" text="PID Control">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -141,10 +141,10 @@
                            <children>
                               <LineChart fx:id="pidGraph" alternativeRowFillVisible="false" animated="false" createSymbols="false" focusTraversable="true" horizontalZeroLineVisible="false" legendVisible="false" title="PID Setpoint and Position" verticalGridLinesVisible="false" verticalZeroLineVisible="false" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" autoRanging="true" forceZeroInRange="false" />
+                                  <NumberAxis autoRanging="true" forceZeroInRange="false" side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis side="LEFT"  forceZeroInRange="true" />
+                                  <NumberAxis forceZeroInRange="true" side="LEFT" />
                                 </yAxis>
                               </LineChart>
                               <AnchorPane prefHeight="511.0" prefWidth="104.0">
