@@ -145,21 +145,6 @@ public class InterfaceController {
 		assert position != null : "fx:id=\"position\" was not injected: check your FXML file 'MainScreen.fxml'.";
 		teamName.setText("IMU-Team21");
 
-		// choiceBoxWeight.setValue(weights.get(0));
-		// choiceBoxWeight.setItems(weights);
-		// choiceBoxSide.setValue("25");
-		// choiceBoxSide.setItems(sides);
-		// choiceBoxPos.setValue("1");
-		// choiceBoxPos.setItems(pos);
-		//
-		// choiceBoxWeight.getSelectionModel().select(weights.get(0));
-		//
-		// start.setDisable(true);
-		// stop.setDisable(true);
-		// // PLE.setDisable(true);
-		// // RHE.setDisable(true);
-		// send.setDisable(true);
-		// approveButton.setDisable(true);
 		
 		for(int i=0;i<2;i++) {
 			Series e = new XYChart.Series();
@@ -188,12 +173,6 @@ public class InterfaceController {
 							imutab.setDisable(false);
 							pidTab.setDisable(false);
 							irtab.setDisable(false);
-							// start.setDisable(false);
-							// stop.setDisable(false);
-							// // PLE.setDisable(false);
-							// // RHE.setDisable(false);
-							// send.setDisable(false);
-							// approveButton.setDisable(true);
 						});
 					}
 				} catch (Exception ex) {
