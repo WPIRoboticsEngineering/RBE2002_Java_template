@@ -3,28 +3,19 @@ package edu.wpi.rbe.rbe2001.fieldsimulator.gui;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 import edu.wpi.rbe.rbe2001.fieldsimulator.robot.FireFighterRobot;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class InterfaceController {
 	static InterfaceController me;
@@ -44,7 +35,8 @@ public class InterfaceController {
 
 	@FXML
 	private Tab imutab;
-
+	@FXML
+	private Tab irtab;
 	@FXML
 	private Label accelx;
 
@@ -87,7 +79,8 @@ public class InterfaceController {
 	@FXML
 	private LineChart<Double, Double> pidGraph;
 	private ArrayList<XYChart.Series> pidGraphSeries = new ArrayList<>();
-	
+	@FXML
+    private ScatterChart<Double, Double> irChart;
 	@FXML
 	private TextField kp;
 
@@ -114,6 +107,7 @@ public class InterfaceController {
 	private double datas[] = null;
 	private double piddata[] = null;
 	private double pidConfig[] = null;
+	private double irdata[] = null;
 	private DecimalFormat formatter = new DecimalFormat();
 	private double start  =((double)System.currentTimeMillis())/1000.0;
 	private long lastPos;
@@ -174,6 +168,10 @@ public class InterfaceController {
 			pidGraph.getData().add(e);
 		}
 		pidGraph.getXAxis().autoRangingProperty().set(true);
+		irChart.getData().add(new XYChart.Series());
+		irChart.getData().add(new XYChart.Series());
+		irChart.getData().add(new XYChart.Series());
+		irChart.getData().add(new XYChart.Series());
 	}
 
 	private void connectToDevice() {
@@ -189,6 +187,7 @@ public class InterfaceController {
 							robotName.setText(getRobot().getName());
 							imutab.setDisable(false);
 							pidTab.setDisable(false);
+							irtab.setDisable(false);
 							// start.setDisable(false);
 							// stop.setDisable(false);
 							// // PLE.setDisable(false);
@@ -281,6 +280,17 @@ public class InterfaceController {
 				ex.printStackTrace();
 			}
 		});
+		fieldSim.addEvent(1590, () -> {
+			try {
+				if (irdata == null)
+					irdata = new double[8];
+				fieldSim.readFloats(1590, irdata);
+				Platform.runLater(()->updateIR(irdata));
+				//System.out.println("IR "+irdata);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
 		fieldSim.addEvent(1857, () -> {
 			try {
 				if (pidConfig == null)
@@ -323,7 +333,16 @@ public class InterfaceController {
 			}			
 		}
 	}
-	
+	@SuppressWarnings("unchecked")
+	private void updateIR(double []pos) {
+		for(int i=0;i<4;i++) {
+			double x = pos[i*2];
+			double y = pos[i*2+1];
+			Series e =irChart.getData().get(i);
+			e.getData().clear();
+			e.getData().add(new XYChart.Data( x, y));
+		}
+	}
 	private void setUpPid() {
 		System.out.println("PID controller has " + fieldSim.getNumPid() + " controllers");
 		if (fieldSim.getNumPid() > 0) {

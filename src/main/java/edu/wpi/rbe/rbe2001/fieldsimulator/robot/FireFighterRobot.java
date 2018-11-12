@@ -21,13 +21,14 @@ public class FireFighterRobot extends UdpDevice {
 	private FloatPacketType pidStatus = new FloatPacketType(1910, 64);
 	private FloatPacketType getConfig = new FloatPacketType(1857, 64);
 	private FloatPacketType setConfig = new FloatPacketType(1900, 64);
+	private FloatPacketType getIR = new FloatPacketType(1590, 64);
 	double [] numPID = new double[1];
 	double [] pidStatusData=null;
 	double [] pidConfigData=new double[3*2];
 	private FireFighterRobot(InetAddress add) throws Exception {
 		super(add);
 
-		for (PacketType pt : Arrays.asList(IMU, pidStatus, getConfig, setConfig)) {
+		for (PacketType pt : Arrays.asList(IMU, pidStatus, getConfig, setConfig,getIR)) {
 			addPollingPacket(pt);
 		}
 		getConfig.oneShotMode();
