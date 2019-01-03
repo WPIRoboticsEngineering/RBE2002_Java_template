@@ -11,7 +11,7 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainScreen.fxml"));
-    primaryStage.setTitle("Fire Fighting Robot");
+    primaryStage.setTitle("RBE 2001 Controller");
     //root.getStylesheets().add("/materialfx-material-design-for-javafx/material-fx-v0_3.css");
     primaryStage.setScene(new Scene(root, 811, 665));
     //primaryStage.setResizable(false);

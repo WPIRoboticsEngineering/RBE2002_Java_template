@@ -214,30 +214,7 @@ public class InterfaceController {
 	private void setFieldSim(RBE2001Robot fieldSim) {
 		fieldSim.setReadTimeout(1000);
 		InterfaceController.fieldSim = fieldSim;
-//		fieldSim.addEvent(1804, () -> {
-//			if (datas == null)
-//				datas = new double[12];
-//			fieldSim.readFloats(1804, datas);
-//			Platform.runLater(() -> {
-//				int base = 0;
-//				accelx.setText(formatter.format(datas[base + 0]));
-//				accely.setText(formatter.format(datas[base + 1]));
-//				accelz.setText(formatter.format(datas[base + 2]));
-//				base = 3;
-//				gyrox.setText(formatter.format(datas[base + 0]));
-//				gyroy.setText(formatter.format(datas[base + 1]));
-//				gyroz.setText(formatter.format(datas[base + 2]));
-//				base = 6;
-//				gravx.setText(formatter.format(datas[base + 0]));
-//				gravy.setText(formatter.format(datas[base + 1]));
-//				gravz.setText(formatter.format(datas[base + 2]));
-//				base = 9;
-//				eulx.setText(formatter.format(datas[base + 0]));
-//				euly.setText(formatter.format(datas[base + 1]));
-//				eulz.setText(formatter.format(datas[base + 2]));
-//
-//			});
-//		});
+
 		fieldSim.addEvent(1910, () -> {
 			try {
 				if (piddata == null)
@@ -261,17 +238,7 @@ public class InterfaceController {
 			}
 		});
 		
-//		fieldSim.addEvent(1590, () -> {
-//			try {
-//				if (irdata == null)
-//					irdata = new double[8];
-//				fieldSim.readFloats(1590, irdata);
-//				Platform.runLater(()->updateIR(irdata));
-//				//System.out.println("IR "+irdata);
-//			} catch (Exception ex) {
-//				ex.printStackTrace();
-//			}
-//		});
+
 		fieldSim.addEvent(1857, () -> {
 			try {
 				if (pidConfig == null)
@@ -314,16 +281,7 @@ public class InterfaceController {
 			}			
 		}
 	}
-	@SuppressWarnings("unchecked")
-	private void updateIR(double []pos) {
-//		for(int i=0;i<4;i++) {
-//			double x = pos[i*2];
-//			double y = pos[i*2+1];
-//			Series e =irChart.getData().get(i);
-//			e.getData().clear();
-//			e.getData().add(new XYChart.Data( x, y));
-//		}
-	}
+
 	private void setUpPid() {
 		System.out.println("PID controller has " + fieldSim.getNumPid() + " controllers");
 		if (fieldSim.getNumPid() > 0) {
@@ -343,7 +301,7 @@ public class InterfaceController {
 			Platform.runLater(() ->pidChannel.setValue(0));
 			Platform.runLater(() -> setType.getItems().add("LIN"));
 			Platform.runLater(() -> setType.getItems().add("SIN"));
-			setType.setValue("LIN");
+			Platform.runLater(() ->setType.setValue("LIN"));
 		}
 	}
 
