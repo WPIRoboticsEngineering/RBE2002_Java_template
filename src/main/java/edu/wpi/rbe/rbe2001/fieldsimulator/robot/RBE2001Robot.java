@@ -22,8 +22,7 @@ public class RBE2001Robot extends UdpDevice {
 	private FloatPacketType getConfig = new FloatPacketType(1857, 64);
 	private FloatPacketType setConfig = new FloatPacketType(1900, 64);
 	double [] numPID = new double[1];
-	double [] pidStatusData=null;
-	double [] pidConfigData=new double[3*2];
+	double [] pidConfigData=new double[15];
 	private RBE2001Robot(InetAddress add) throws Exception {
 		super(add);
 
