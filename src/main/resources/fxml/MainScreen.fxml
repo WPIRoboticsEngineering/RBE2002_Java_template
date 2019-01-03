@@ -61,74 +61,72 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="imutab" closable="false" disable="true" text="IMU data">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+          <Tab fx:id="pidVelTab" closable="false" disable="true" text="PID Velocity">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <GridPane layoutX="-2.0" layoutY="2.0" prefHeight="528.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                           <columnConstraints>
-                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="193.0" minWidth="50.0" prefWidth="187.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="563.0" minWidth="10.0" prefWidth="524.0" />
                           </columnConstraints>
                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="457.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Acceleration X" />
-                              <Label text="Acceleration Y" GridPane.rowIndex="1" />
-                              <Label text="Acceleration Z" GridPane.rowIndex="2" />
-                              <Label text="Gyro X" GridPane.rowIndex="3" />
-                              <Label text="Gyro Y" GridPane.rowIndex="4" />
-                              <Label text="Gyro Z" GridPane.rowIndex="5" />
-                              <Label text="Gravity X" GridPane.rowIndex="6" />
-                              <Label text="Gravity Y" GridPane.rowIndex="7" />
-                              <Label text="Gravity Z" GridPane.rowIndex="8" />
-                              <Label text="Euler Angle X" GridPane.rowIndex="9" />
-                              <Label text="Euler Angle Y" GridPane.rowIndex="10" />
-                              <Label text="Euler Angle Z" GridPane.rowIndex="11" />
-                              <Label fx:id="accelx" text="0" GridPane.columnIndex="1" />
-                              <Label fx:id="accely" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="accelz" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="gyrox" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label fx:id="gyroy" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label fx:id="gyroz" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Label fx:id="gravx" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <Label fx:id="gravy" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                              <Label fx:id="gravz" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                              <Label fx:id="eulx" text="0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                              <Label fx:id="euly" text="0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                              <Label fx:id="eulz" text="0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                              <Label text="MS^2" GridPane.columnIndex="2" />
-                              <Label text="MS^2" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <Label text="MS^2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <Label text="rad/s" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <Label text="rad/s" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                              <Label text="rad/s" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                              <Label text="MS^2" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                              <Label text="MS^2" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                              <Label text="MS^2" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                              <Label text="Degrees" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-                              <Label text="Degrees" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                              <Label text="Degrees" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                              <LineChart fx:id="pidGraphVel" alternativeRowFillVisible="false" animated="false" createSymbols="false" focusTraversable="true" horizontalZeroLineVisible="false" legendVisible="false" title="PID Velovity and Motor Set" verticalGridLinesVisible="false" verticalZeroLineVisible="false" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                <xAxis>
+                                  <NumberAxis autoRanging="true" forceZeroInRange="false" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis forceZeroInRange="true" side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                              <AnchorPane prefHeight="511.0" prefWidth="104.0">
+                                 <children>
+                                    <GridPane layoutX="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="169.0" AnchorPane.bottomAnchor="196.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label text="Kp" GridPane.rowIndex="1" />
+                                          <Label text="Kd" GridPane.rowIndex="3" />
+                                          <TextField fx:id="kpVel" onAction="#onSetGainsVelocity" text="1.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                         <TextField fx:id="kdVel" onAction="#onSetGainsVelocity" text="0.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <Button fx:id="pidConstUpdateVelocity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSetGainsVelocity" prefHeight="25.0" prefWidth="89.0" text="Set Gains" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <ChoiceBox fx:id="pidChannelVelocity" prefWidth="150.0" GridPane.columnIndex="2" />
+                                          <TextField fx:id="setpointVelocity" text="0.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                          <Button fx:id="setSetpointVelocity" mnemonicParsing="false" onAction="#onSetVelocity" text="Set" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <Label prefHeight="17.0" prefWidth="67.0" text="Channel" />
+                                          <Label text="Set Velocity" GridPane.rowIndex="5" />
+                                          <Label text="Velocity" GridPane.rowIndex="6" />
+                                          <Label fx:id="velocityVal" text="0.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                                             <padding>
+                                                <Insets left="9.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </GridPane>
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
-            <Tab fx:id="pidTab" closable="false" disable="true" text="PID Control">
+              </content>
+            </Tab>
+          <Tab fx:id="pidTab" closable="false" disable="true" text="PID Control">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -195,22 +193,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="irtab" disable="true" text="IR Camera">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ScatterChart fx:id="irChart" animated="false" title="IR Camera" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <xAxis>
-                            <NumberAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </ScatterChart>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
+        
         </tabs>
          <padding>
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />

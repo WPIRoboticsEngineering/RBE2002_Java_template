@@ -19,100 +19,90 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
 public class InterfaceController {
-	static InterfaceController me;
-	private static RBE2001Robot fieldSim;
-	private int numPIDControllers = 0;
-	private int currentIndex=0;
-	@FXML // fx:id="robotName"
-	private Label robotName; // Value injected by FXMLLoader
-	@FXML
-	private Tab connectTab;
 
-	@FXML
-	private TextField teamName;
+    @FXML
+    private Tab connectTab;
 
-	@FXML
-	private Button connectToDevice;
+    @FXML
+    private TextField teamName;
 
-	@FXML
-	private Tab imutab;
-	@FXML
-	private Tab irtab;
-	@FXML
-	private Label accelx;
+    @FXML
+    private Button connectToDevice;
 
-	@FXML
-	private Label accely;
+    @FXML
+    private Label robotName;
 
-	@FXML
-	private Label accelz;
+    @FXML
+    private Tab pidVelTab;
 
-	@FXML
-	private Label gyrox;
 
-	@FXML
-	private Label gyroy;
+    @FXML
+    private TextField kpVel;
 
-	@FXML
-	private Label gyroz;
+    @FXML
+    private TextField kdVel;
 
-	@FXML
-	private Label gravx;
+    @FXML
+    private Button pidConstUpdateVelocity;
 
-	@FXML
-	private Label gravy;
+    @FXML
+    private ChoiceBox<?> pidChannelVelocity;
 
-	@FXML
-	private Label gravz;
+    @FXML
+    private TextField setpointVelocity;
 
-	@FXML
-	private Label eulx;
+    @FXML
+    private Button setSetpointVelocity;
 
-	@FXML
-	private Label euly;
+    @FXML
+    private Label velocityVal;
 
-	@FXML
-	private Label eulz;
+    @FXML
+    private Tab pidTab;
 
-	@FXML
-	private Tab pidTab;
 
+    @FXML
+    private TextField kp;
+
+    @FXML
+    private TextField ki;
+
+    @FXML
+    private TextField kd;
+
+    @FXML
+    private Button pidConstUpdate;
+
+    
+
+    @FXML
+    private TextField setpoint;
+
+    @FXML
+    private Button setSetpoint;
+
+    @FXML
+    private Label position;
+    
+    @FXML
+    private ChoiceBox<Integer> pidChannel;
 	@FXML
-	private LineChart<Double, Double> pidGraph;
+	private LineChart<Double, Double> pidGraph;	
+	@FXML
+	private LineChart<Double, Double> pidGraphVel;
+	private ArrayList<XYChart.Series> pidGraphSeriesVel = new ArrayList<>();
 	private ArrayList<XYChart.Series> pidGraphSeries = new ArrayList<>();
-	@FXML
-    private ScatterChart<Double, Double> irChart;
-	@FXML
-	private TextField kp;
 
-	@FXML
-	private TextField ki;
-
-	@FXML
-	private TextField kd;
-
-	@FXML
-	private Button pidConstUpdate;
-
-	@FXML
-	private ChoiceBox<Integer> pidChannel;
-
-	@FXML
-	private TextField setpoint;
-
-	@FXML
-	private Button setSetpoint;
-
-	@FXML
-	private Label position;
-	private double datas[] = null;
 	private double piddata[] = null;
 	private double pidConfig[] = null;
-	private double irdata[] = null;
 	private DecimalFormat formatter = new DecimalFormat();
 	private double start  =((double)System.currentTimeMillis())/1000.0;
 	private long lastPos;
 	private long lastSet;
+	static InterfaceController me;
+	private static RBE2001Robot fieldSim;
+	private int numPIDControllers = 0;
+	private int currentIndex=0;
 	@FXML
 	private void initialize() {
 		me = this;
@@ -121,19 +111,7 @@ public class InterfaceController {
 		assert connectTab != null : "fx:id=\"connectTab\" was not injected: check your FXML file 'MainScreen.fxml'.";
 		assert teamName != null : "fx:id=\"teamName\" was not injected: check your FXML file 'MainScreen.fxml'.";
 		assert connectToDevice != null : "fx:id=\"connectToDevice\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert imutab != null : "fx:id=\"imutab\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert accelx != null : "fx:id=\"accelx\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert accely != null : "fx:id=\"accely\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert accelz != null : "fx:id=\"accelz\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert gyrox != null : "fx:id=\"gyrox\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert gyroy != null : "fx:id=\"gyroy\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert gyroz != null : "fx:id=\"gyroz\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert gravx != null : "fx:id=\"gravx\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert gravy != null : "fx:id=\"gravy\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert gravz != null : "fx:id=\"gravz\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert eulx != null : "fx:id=\"eulx\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert euly != null : "fx:id=\"euly\" was not injected: check your FXML file 'MainScreen.fxml'.";
-		assert eulz != null : "fx:id=\"eulz\" was not injected: check your FXML file 'MainScreen.fxml'.";
+
 		assert pidTab != null : "fx:id=\"pidTab\" was not injected: check your FXML file 'MainScreen.fxml'.";
 		assert pidGraph != null : "fx:id=\"pidGraph\" was not injected: check your FXML file 'MainScreen.fxml'.";
 		assert kp != null : "fx:id=\"kp\" was not injected: check your FXML file 'MainScreen.fxml'.";
@@ -147,17 +125,20 @@ public class InterfaceController {
 		teamName.setText("IMU-Team21");
 
 		
-		for(int i=0;i<2;i++) {
+		for(int i=0;i<3;i++) {
 			Series e = new XYChart.Series();
 			
 			pidGraphSeries.add(i,e);
 			pidGraph.getData().add(e);
 		}
-		pidGraph.getXAxis().autoRangingProperty().set(true);
-		irChart.getData().add(new XYChart.Series());
-		irChart.getData().add(new XYChart.Series());
-		irChart.getData().add(new XYChart.Series());
-		irChart.getData().add(new XYChart.Series());
+		pidGraphVel.getXAxis().autoRangingProperty().set(true);
+		for(int i=0;i<3;i++) {
+			Series e = new XYChart.Series();
+			
+			pidGraphSeriesVel.add(i,e);
+			pidGraphVel.getData().add(e);
+		}
+		pidGraphVel.getXAxis().autoRangingProperty().set(true);
 	}
 
 	private void connectToDevice() {
@@ -171,9 +152,8 @@ public class InterfaceController {
 					if (getRobot() != null) {
 						Platform.runLater(() -> {
 							robotName.setText(getRobot().getName());
-							imutab.setDisable(false);
 							pidTab.setDisable(false);
-							irtab.setDisable(false);
+							pidVelTab.setDisable(false);
 						});
 					}
 				} catch (Exception ex) {
