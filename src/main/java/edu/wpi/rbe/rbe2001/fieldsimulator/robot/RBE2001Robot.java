@@ -17,7 +17,7 @@ import javafx.application.Platform;
 
 public class RBE2001Robot extends UdpDevice {
 
-	
+	private FloatPacketType setSetpoint = new FloatPacketType(1848, 64);
 	private FloatPacketType pidStatus = new FloatPacketType(1910, 64);
 	private FloatPacketType getConfig = new FloatPacketType(1857, 64);
 	private FloatPacketType setConfig = new FloatPacketType(1900, 64);
@@ -26,11 +26,12 @@ public class RBE2001Robot extends UdpDevice {
 	private RBE2001Robot(InetAddress add) throws Exception {
 		super(add);
 
-		for (PacketType pt : Arrays.asList( pidStatus, getConfig, setConfig)) {
+		for (PacketType pt : Arrays.asList( pidStatus, getConfig, setConfig,setSetpoint)) {
 			addPollingPacket(pt);
 		}
 		getConfig.oneShotMode();
 		setConfig.waitToSendMode();
+		setSetpoint.waitToSendMode();
 		addEvent(1857, () -> {
 			try {	
 				readFloats(1857, pidConfigData);
@@ -83,9 +84,14 @@ public class RBE2001Robot extends UdpDevice {
 		pidConfigData[3*index+0]=kp;
 		pidConfigData[3*index+1]=ki;
 		pidConfigData[3*index+2]=kd;
-		writeFloats(1900, pidConfigData);
+		writeFloats(setConfig.idOfCommand, pidConfigData);
 		setConfig.oneShotMode();
 		
 	}
+	public void setPidSetpoints(double [] data) {
 	
+		writeFloats(setSetpoint.idOfCommand, data);
+		setSetpoint.oneShotMode();
+		
+	}
 }

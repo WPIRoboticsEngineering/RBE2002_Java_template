@@ -86,6 +86,14 @@ public class InterfaceController {
     
     @FXML
     private ChoiceBox<Integer> pidChannel;
+
+    @FXML // fx:id="setDuration"
+    private TextField setDuration; // Value injected by FXMLLoader
+
+    @FXML // fx:id="setType"
+    private ChoiceBox<String> setType; // Value injected by FXMLLoader
+    
+    
 	@FXML
 	private LineChart<Double, Double> pidGraph;	
 	@FXML
@@ -185,6 +193,17 @@ public class InterfaceController {
 
 	@FXML
 	void onSetSetpoint() {
+		double down[] = new double [2+2*numPIDControllersOnDevice];
+		down[0] = Integer.parseInt(setDuration.getText());
+		down[1] = setType.getSelectionModel().getSelectedItem().equals("LIN")?0:1;
+		for(int i=0;i<numPIDControllersOnDevice;i++) {
+			if(i==currentIndex) {
+				down[2+i] = Double.parseDouble(setpoint.getText());
+			}else {
+				down[2+i] =piddata[1+currentIndex*2+0];
+			}
+		}
+		fieldSim.setPidSetpoints(down);
 		
 	}
 
@@ -321,6 +340,10 @@ public class InterfaceController {
 								
 				}
 			});
+			Platform.runLater(() ->pidChannel.setValue(0));
+			Platform.runLater(() -> setType.getItems().add("LIN"));
+			Platform.runLater(() -> setType.getItems().add("SIN"));
+			setType.setValue("LIN");
 		}
 	}
 
