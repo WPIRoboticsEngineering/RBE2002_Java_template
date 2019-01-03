@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.wpi.rbe.rbe2001.fieldsimulator.robot.FireFighterRobot;
+import edu.wpi.rbe.rbe2001.fieldsimulator.robot.RBE2001Robot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -19,7 +20,7 @@ import javafx.scene.chart.XYChart.Series;
 
 public class InterfaceController {
 	static InterfaceController me;
-	private static FireFighterRobot fieldSim;
+	private static RBE2001Robot fieldSim;
 	private int numPIDControllers = 0;
 	private int currentIndex=0;
 	@FXML // fx:id="robotName"
@@ -164,7 +165,7 @@ public class InterfaceController {
 			connectToDevice.setDisable(true);
 			new Thread(() -> {
 				try {
-					setFieldSim(FireFighterRobot.get(teamName.getText()).get(0));
+					setFieldSim(RBE2001Robot.get(teamName.getText()).get(0));
 					Thread.sleep(1000);
 					// getFieldSim().setReadTimeout(1000);
 					if (getRobot() != null) {
@@ -206,37 +207,37 @@ public class InterfaceController {
 		
 	}
 
-	public FireFighterRobot getRobot() {
+	public RBE2001Robot getRobot() {
 		return fieldSim;
 	}
 
-	private void setFieldSim(FireFighterRobot fieldSim) {
+	private void setFieldSim(RBE2001Robot fieldSim) {
 		fieldSim.setReadTimeout(1000);
 		InterfaceController.fieldSim = fieldSim;
-		fieldSim.addEvent(1804, () -> {
-			if (datas == null)
-				datas = new double[12];
-			fieldSim.readFloats(1804, datas);
-			Platform.runLater(() -> {
-				int base = 0;
-				accelx.setText(formatter.format(datas[base + 0]));
-				accely.setText(formatter.format(datas[base + 1]));
-				accelz.setText(formatter.format(datas[base + 2]));
-				base = 3;
-				gyrox.setText(formatter.format(datas[base + 0]));
-				gyroy.setText(formatter.format(datas[base + 1]));
-				gyroz.setText(formatter.format(datas[base + 2]));
-				base = 6;
-				gravx.setText(formatter.format(datas[base + 0]));
-				gravy.setText(formatter.format(datas[base + 1]));
-				gravz.setText(formatter.format(datas[base + 2]));
-				base = 9;
-				eulx.setText(formatter.format(datas[base + 0]));
-				euly.setText(formatter.format(datas[base + 1]));
-				eulz.setText(formatter.format(datas[base + 2]));
-
-			});
-		});
+//		fieldSim.addEvent(1804, () -> {
+//			if (datas == null)
+//				datas = new double[12];
+//			fieldSim.readFloats(1804, datas);
+//			Platform.runLater(() -> {
+//				int base = 0;
+//				accelx.setText(formatter.format(datas[base + 0]));
+//				accely.setText(formatter.format(datas[base + 1]));
+//				accelz.setText(formatter.format(datas[base + 2]));
+//				base = 3;
+//				gyrox.setText(formatter.format(datas[base + 0]));
+//				gyroy.setText(formatter.format(datas[base + 1]));
+//				gyroz.setText(formatter.format(datas[base + 2]));
+//				base = 6;
+//				gravx.setText(formatter.format(datas[base + 0]));
+//				gravy.setText(formatter.format(datas[base + 1]));
+//				gravz.setText(formatter.format(datas[base + 2]));
+//				base = 9;
+//				eulx.setText(formatter.format(datas[base + 0]));
+//				euly.setText(formatter.format(datas[base + 1]));
+//				eulz.setText(formatter.format(datas[base + 2]));
+//
+//			});
+//		});
 		fieldSim.addEvent(1910, () -> {
 			try {
 				if (piddata == null)
@@ -259,17 +260,18 @@ public class InterfaceController {
 				ex.printStackTrace();
 			}
 		});
-		fieldSim.addEvent(1590, () -> {
-			try {
-				if (irdata == null)
-					irdata = new double[8];
-				fieldSim.readFloats(1590, irdata);
-				Platform.runLater(()->updateIR(irdata));
-				//System.out.println("IR "+irdata);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		});
+		
+//		fieldSim.addEvent(1590, () -> {
+//			try {
+//				if (irdata == null)
+//					irdata = new double[8];
+//				fieldSim.readFloats(1590, irdata);
+//				Platform.runLater(()->updateIR(irdata));
+//				//System.out.println("IR "+irdata);
+//			} catch (Exception ex) {
+//				ex.printStackTrace();
+//			}
+//		});
 		fieldSim.addEvent(1857, () -> {
 			try {
 				if (pidConfig == null)
@@ -307,20 +309,20 @@ public class InterfaceController {
 			pidGraphSeries.get(1).getData().add(new XYChart.Data( now, set));
 		}
 		for(Series s:pidGraphSeries) {		
-			while(s.getData().size()>500) {
+			while(s.getData().size()>200) {
 				s.getData().remove(0);
 			}			
 		}
 	}
 	@SuppressWarnings("unchecked")
 	private void updateIR(double []pos) {
-		for(int i=0;i<4;i++) {
-			double x = pos[i*2];
-			double y = pos[i*2+1];
-			Series e =irChart.getData().get(i);
-			e.getData().clear();
-			e.getData().add(new XYChart.Data( x, y));
-		}
+//		for(int i=0;i<4;i++) {
+//			double x = pos[i*2];
+//			double y = pos[i*2+1];
+//			Series e =irChart.getData().get(i);
+//			e.getData().clear();
+//			e.getData().add(new XYChart.Data( x, y));
+//		}
 	}
 	private void setUpPid() {
 		System.out.println("PID controller has " + fieldSim.getNumPid() + " controllers");
