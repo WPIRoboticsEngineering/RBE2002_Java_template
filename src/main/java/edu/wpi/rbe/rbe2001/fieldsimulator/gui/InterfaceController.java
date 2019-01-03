@@ -103,6 +103,7 @@ public class InterfaceController {
 	private static RBE2001Robot fieldSim;
 	private int numPIDControllers = 0;
 	private int currentIndex=0;
+	private static final int numPIDControllersOnDevice=3;
 	@FXML
 	private void initialize() {
 		me = this;
@@ -125,14 +126,14 @@ public class InterfaceController {
 		teamName.setText("IMU-Team21");
 
 		
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<numPIDControllersOnDevice;i++) {
 			Series e = new XYChart.Series();
 			
 			pidGraphSeries.add(i,e);
 			pidGraph.getData().add(e);
 		}
 		pidGraphVel.getXAxis().autoRangingProperty().set(true);
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<numPIDControllersOnDevice;i++) {
 			Series e = new XYChart.Series();
 			
 			pidGraphSeriesVel.add(i,e);
@@ -221,7 +222,7 @@ public class InterfaceController {
 		fieldSim.addEvent(1910, () -> {
 			try {
 				if (piddata == null)
-					piddata = new double[5];
+					piddata = new double[1+2*numPIDControllersOnDevice];
 				fieldSim.readFloats(1910, piddata);
 				int myNumPid = (int) piddata[0];
 				if (numPIDControllers != myNumPid) {
@@ -255,7 +256,7 @@ public class InterfaceController {
 		fieldSim.addEvent(1857, () -> {
 			try {
 				if (pidConfig == null)
-					pidConfig = new double[3*2];
+					pidConfig = new double[3*numPIDControllersOnDevice];
 				fieldSim.readFloats(1857, pidConfig);
 				
 				//System.out.println(" "+DoubleStream.of(pidConfig).boxed().collect(Collectors.toCollection(ArrayList::new)));
@@ -327,4 +328,13 @@ public class InterfaceController {
 		if (me.getRobot() != null)
 			me.getRobot().disconnect();
 	}
+    @FXML
+    void onSetVelocity() {
+
+    }
+    @FXML
+    void onSetGainsVelocity() {
+
+    }
+    
 }
