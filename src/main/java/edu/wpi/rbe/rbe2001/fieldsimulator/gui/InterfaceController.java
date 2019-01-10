@@ -112,7 +112,7 @@ public class InterfaceController {
 	@FXML
 	private void initialize() {
 		me = this;
-		formatter.setMaximumFractionDigits(3);
+		formatter.setMaximumFractionDigits(6);
 
 		assert connectTab != null : "fx:id=\"connectTab\" was not injected: check your FXML file 'MainScreen.fxml'.";
 		assert teamName != null : "fx:id=\"teamName\" was not injected: check your FXML file 'MainScreen.fxml'.";
