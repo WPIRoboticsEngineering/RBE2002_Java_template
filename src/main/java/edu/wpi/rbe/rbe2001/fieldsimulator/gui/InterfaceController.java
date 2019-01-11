@@ -30,7 +30,8 @@ public class InterfaceController {
 
 	@FXML
 	private Tab pidVelTab;
-
+	@FXML
+	private Tab tab2001Field;
 	@FXML
 	private TextField kpVel;
 
@@ -154,6 +155,7 @@ public class InterfaceController {
 							robotName.setText(getRobot().getName());
 							pidTab.setDisable(false);
 							pidVelTab.setDisable(false);
+							tab2001Field.setDisable(false);
 						});
 					}
 				} catch (Exception ex) {

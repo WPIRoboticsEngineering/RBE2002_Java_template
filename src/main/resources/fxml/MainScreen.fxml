@@ -59,6 +59,11 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="2001 Field">
+              <content>
+                <AnchorPane fx:id="tab2001Field" disable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
           <Tab fx:id="pidVelTab" closable="false" disable="true" text="PID Velocity">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
