@@ -21,24 +21,68 @@ public class RBE2001Robot extends UdpDevice {
 	private FloatPacketType pidStatus = new FloatPacketType(1910, 64);
 	private FloatPacketType getConfig = new FloatPacketType(1857, 64);
 	private FloatPacketType setConfig = new FloatPacketType(1900, 64);
+	private PacketType estop = new BytePacketType(1989, 64);
+	private PacketType getStatus = new BytePacketType(2012, 64);
+	private PacketType clearFaults = new BytePacketType(1871, 64);
+	private PacketType pickOrder = new FloatPacketType(1936, 64);
+	private PacketType approve = new BytePacketType(1994, 64);
+	private byte[] status = new byte[1];
+	private double[] pickOrderData = new double[3];
+	private double[] driveStatus = new double[1];
 	double [] numPID = new double[1];
 	double [] pidConfigData=new double[15];
+	private double currentSetpoint[] = null;
+	private double [] piddata;
+	private int myNumPid=-1;
+	
 	private RBE2001Robot(InetAddress add) throws Exception {
 		super(add);
 
-		for (PacketType pt : Arrays.asList( pidStatus, getConfig, setConfig,setSetpoint)) {
+		for (PacketType pt : Arrays.asList( pidStatus, getConfig, setConfig,setSetpoint,clearFaults, pickOrder, getStatus, approve,estop)) {
 			addPollingPacket(pt);
 		}
 		getConfig.oneShotMode();
 		setConfig.waitToSendMode();
 		setSetpoint.waitToSendMode();
-		addEvent(1857, () -> {
+		pickOrder.waitToSendMode();
+		clearFaults.waitToSendMode();
+		estop.waitToSendMode();
+		approve.waitToSendMode();
+		
+		addEvent(getConfig.idOfCommand, () -> {
 			try {	
 				readFloats(1857, pidConfigData);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		});
+		addEvent(getStatus.idOfCommand, new Runnable() {
+			@Override
+			public void run() {
+				readBytes(getStatus.idOfCommand, status);
+			}
+		});
+
+		addEvent(pidStatus.idOfCommand, () -> {
+			try {
+				if (piddata == null) {
+					piddata = new double[1 + 2 * 7];
+					readFloats(pidStatus.idOfCommand, piddata);
+					setMyNumPid((int) piddata[0]);
+					piddata = new double[1 + 2 * getMyNumPid()];
+					currentSetpoint = new double[getMyNumPid()];
+				}
+				readFloats(pidStatus.idOfCommand, piddata);
+	
+				for(int i=0;i<currentSetpoint.length;i++) {
+					currentSetpoint[i]=piddata[1 + i * 2 + 0];
+				}
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		});
+
 	}
 
 	public static List<RBE2001Robot> get(String name) throws Exception {
@@ -88,10 +132,76 @@ public class RBE2001Robot extends UdpDevice {
 		setConfig.oneShotMode();
 		
 	}
-	public void setPidSetpoints(double [] data) {
-	
-		writeFloats(setSetpoint.idOfCommand, data);
+	public void setPidSetpoints(int msTransition, int mode,double [] data) {
+		double down[] = new double[2 + currentSetpoint.length];
+		down[0] = msTransition;
+		down[1] = mode;
+		for (int i = 0; i < currentSetpoint.length; i++) {
+			down[2 + i] = data[i];
+		}
+		writeFloats(setSetpoint.idOfCommand, down);
 		setSetpoint.oneShotMode();
 		
+	}
+	public void setPidSetpoint(int msTransition, int mode,int index,double data) {
+		double[] cur = new double[currentSetpoint.length];
+		for(int i=0;i<currentSetpoint.length;i++) {
+			if(i==index)
+				cur[index]=data;
+			else
+				cur[i]=currentSetpoint[i];
+		}
+		cur[index]=data;
+		setPidSetpoints( msTransition,  mode,cur);		
+		
+	}
+	public void estop() {
+		estop.oneShotMode();
+	}
+	public double getDriveStatus() {
+		return driveStatus[0];
+	}
+	
+	public void pickOrder(double material, double angle,double dropLocation) {
+		pickOrderData[0]=material;
+		pickOrderData[1]=angle;
+		pickOrderData[2]=dropLocation;
+		writeFloats(pickOrder.idOfCommand, pickOrderData);
+		pickOrder.oneShotMode();
+
+	}
+
+	public WarehouseRobotStatus getStatus() {
+		return WarehouseRobotStatus.fromValue(status[0]);
+	}
+	
+	public void clearFaults() {
+		clearFaults.oneShotMode();
+
+	}
+	public void approve() {
+		approve.oneShotMode();
+
+	}
+	public double getCurrentSetpoint(int currentIndex) {
+		return currentSetpoint[currentIndex];
+	}
+	public double getCurrentPosition(int currentIndex) {
+		return piddata[1 + currentIndex * 2 + 1];
+	}
+	public double[] getCurrentSetpoints() {
+		return currentSetpoint;
+	}
+
+	public void setCurrentSetpoint(double currentSetpoint[]) {
+		this.currentSetpoint = currentSetpoint;
+	}
+
+	public int getMyNumPid() {
+		return myNumPid;
+	}
+
+	public void setMyNumPid(int myNumPid) {
+		this.myNumPid = myNumPid;
 	}
 }

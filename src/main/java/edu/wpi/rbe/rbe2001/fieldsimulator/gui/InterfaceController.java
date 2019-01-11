@@ -2,14 +2,10 @@ package edu.wpi.rbe.rbe2001.fieldsimulator.gui;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import edu.wpi.rbe.rbe2001.fieldsimulator.robot.FireFighterRobot;
 import edu.wpi.rbe.rbe2001.fieldsimulator.robot.RBE2001Robot;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -96,16 +92,15 @@ public class InterfaceController {
 	private ArrayList<XYChart.Series> pidGraphSeriesVel = new ArrayList<>();
 	private ArrayList<XYChart.Series> pidGraphSeries = new ArrayList<>();
 
-	private double piddata[] = null;
 	private double pidConfig[] = null;
-	private double currentSetpoint[] = null;
+
 	private DecimalFormat formatter = new DecimalFormat();
 	private double start = ((double) System.currentTimeMillis()) / 1000.0;
 	private long lastPos;
 	private long lastSet;
 	static InterfaceController me;
 	private static RBE2001Robot fieldSim;
-	private int numPIDControllers = 0;
+	private int numPIDControllers = -1;
 	private int currentIndex = 0;
 	private static final int numPIDControllersOnDevice = 3;
 
@@ -189,17 +184,10 @@ public class InterfaceController {
 
 	@FXML
 	void onSetSetpoint() {
-		double down[] = new double[2 + 2 * numPIDControllersOnDevice];
-		down[0] = Integer.parseInt(setDuration.getText());
-		down[1] = setType.getSelectionModel().getSelectedItem().equals("LIN") ? 0 : 1;
-		for (int i = 0; i < numPIDControllersOnDevice; i++) {
-			if (i == currentIndex) {
-				down[2 + i] = Double.parseDouble(setpoint.getText());
-			} else {
-				down[2 + i] = currentSetpoint[i];
-			}
-		}
-		fieldSim.setPidSetpoints(down);
+		fieldSim.setPidSetpoint(Integer.parseInt(setDuration.getText()),
+				setType.getSelectionModel().getSelectedItem().equals("LIN") ? 0 : 1, 
+						currentIndex, 
+						Double.parseDouble(setpoint.getText()));
 
 	}
 
@@ -213,21 +201,14 @@ public class InterfaceController {
 
 		fieldSim.addEvent(1910, () -> {
 			try {
-				if (piddata == null) {
-					piddata = new double[1 + 2 * numPIDControllersOnDevice];
-					currentSetpoint = new double[numPIDControllersOnDevice];
-				}
-				fieldSim.readFloats(1910, piddata);
-				int myNumPid = (int) piddata[0];
-				if (numPIDControllers != myNumPid) {
-					numPIDControllers = myNumPid;
+	
+				if (numPIDControllers != fieldSim.getMyNumPid()) {
+					numPIDControllers = fieldSim.getMyNumPid();
 					setUpPid();
 				}
-				double pos = piddata[1 + currentIndex * 2 + 1];
-				double set = piddata[1 + currentIndex * 2 + 0];
-				for(int i=0;i<numPIDControllersOnDevice;i++) {
-					currentSetpoint[i]=piddata[1 + i * 2 + 0];
-				}
+				double pos = fieldSim.getPidPosition(currentIndex);
+				double set = fieldSim.getPidSetpoint(currentIndex);
+		
 				String positionVal = formatter.format(pos);
 				// System.out.println(positionVal+"
 				// "+DoubleStream.of(piddata).boxed().collect(Collectors.toCollection(ArrayList::new)));
