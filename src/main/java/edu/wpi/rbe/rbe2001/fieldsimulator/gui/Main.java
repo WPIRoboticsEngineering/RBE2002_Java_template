@@ -13,7 +13,7 @@ public class Main extends Application {
     Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainScreen.fxml"));
     primaryStage.setTitle("RBE 2001 Controller");
     //root.getStylesheets().add("/materialfx-material-design-for-javafx/material-fx-v0_3.css");
-    primaryStage.setScene(new Scene(root, 811, 665));
+    primaryStage.setScene(new Scene(root, 1011, 665));
     //primaryStage.setResizable(false);
     
     primaryStage.show();
