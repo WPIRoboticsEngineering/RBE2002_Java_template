@@ -215,7 +215,7 @@ public class InterfaceController {
 				;
 				Platform.runLater(() -> position.setText(positionVal));
 				Platform.runLater(() -> updateGraph(pos, set));
-
+				
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

@@ -29,16 +29,16 @@ public class RBE2001Robot extends UdpDevice {
 	private byte[] status = new byte[1];
 	private double[] pickOrderData = new double[3];
 	private double[] driveStatus = new double[1];
-	double [] numPID = new double[1];
-	double [] pidConfigData=new double[15];
-	private double currentSetpoint[] = null;
-	private double [] piddata;
-	private int myNumPid=-1;
-	
+	double[] numPID = new double[1];
+	double[] pidConfigData = new double[15];
+	private double[] piddata;
+	private int myNumPid = -1;
+
 	private RBE2001Robot(InetAddress add) throws Exception {
 		super(add);
 
-		for (PacketType pt : Arrays.asList( pidStatus, getConfig, setConfig,setSetpoint,clearFaults, pickOrder, getStatus, approve,estop)) {
+		for (PacketType pt : Arrays.asList(pidStatus, getConfig, setConfig, setSetpoint, clearFaults, pickOrder,
+				getStatus, approve, estop)) {
 			addPollingPacket(pt);
 		}
 		getConfig.oneShotMode();
@@ -48,19 +48,16 @@ public class RBE2001Robot extends UdpDevice {
 		clearFaults.waitToSendMode();
 		estop.waitToSendMode();
 		approve.waitToSendMode();
-		
+
 		addEvent(getConfig.idOfCommand, () -> {
-			try {	
+			try {
 				readFloats(1857, pidConfigData);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		});
-		addEvent(getStatus.idOfCommand, new Runnable() {
-			@Override
-			public void run() {
-				readBytes(getStatus.idOfCommand, status);
-			}
+		addEvent(getStatus.idOfCommand, () -> {
+			readBytes(getStatus.idOfCommand, status);
 		});
 
 		addEvent(pidStatus.idOfCommand, () -> {
@@ -70,13 +67,10 @@ public class RBE2001Robot extends UdpDevice {
 					readFloats(pidStatus.idOfCommand, piddata);
 					setMyNumPid((int) piddata[0]);
 					piddata = new double[1 + 2 * getMyNumPid()];
-					currentSetpoint = new double[getMyNumPid()];
 				}
 				readFloats(pidStatus.idOfCommand, piddata);
-	
-				for(int i=0;i<currentSetpoint.length;i++) {
-					currentSetpoint[i]=piddata[1 + i * 2 + 0];
-				}
+
+
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -108,11 +102,11 @@ public class RBE2001Robot extends UdpDevice {
 
 	public double getNumPid() {
 		readFloats(1910, numPID);
-		return  numPID[0];
+		return numPID[0];
 	}
 
 	public double getPidSetpoint(int index) {
-		double [] d = new double[1];
+		double[] d = new double[1];
 		readFloats(1910, d);
 		return pidStatus.getUpstream()[1 + index * 2 + 0].doubleValue();
 	}
@@ -124,48 +118,53 @@ public class RBE2001Robot extends UdpDevice {
 	public void updatConfig() {
 		getConfig.oneShotMode();
 	}
+
 	public void setPidGains(int index, double kp, double ki, double kd) {
-		pidConfigData[3*index+0]=kp;
-		pidConfigData[3*index+1]=ki;
-		pidConfigData[3*index+2]=kd;
+		pidConfigData[3 * index + 0] = kp;
+		pidConfigData[3 * index + 1] = ki;
+		pidConfigData[3 * index + 2] = kd;
 		writeFloats(setConfig.idOfCommand, pidConfigData);
 		setConfig.oneShotMode();
-		
+
 	}
-	public void setPidSetpoints(int msTransition, int mode,double [] data) {
-		double down[] = new double[2 + currentSetpoint.length];
+
+	public void setPidSetpoints(int msTransition, int mode, double[] data) {
+		double down[] = new double[2 + myNumPid];
 		down[0] = msTransition;
 		down[1] = mode;
-		for (int i = 0; i < currentSetpoint.length; i++) {
+		for (int i = 0; i < myNumPid; i++) {
 			down[2 + i] = data[i];
 		}
 		writeFloats(setSetpoint.idOfCommand, down);
 		setSetpoint.oneShotMode();
-		
+
 	}
-	public void setPidSetpoint(int msTransition, int mode,int index,double data) {
-		double[] cur = new double[currentSetpoint.length];
-		for(int i=0;i<currentSetpoint.length;i++) {
-			if(i==index)
-				cur[index]=data;
+
+	public void setPidSetpoint(int msTransition, int mode, int index, double data) {
+		double[] cur = new double[myNumPid];
+		for (int i = 0; i < myNumPid; i++) {
+			if (i == index)
+				cur[index] = data;
 			else
-				cur[i]=currentSetpoint[i];
+				cur[i] = getCurrentSetpoint(i);
 		}
-		cur[index]=data;
-		setPidSetpoints( msTransition,  mode,cur);		
-		
+		cur[index] = data;
+		setPidSetpoints(msTransition, mode, cur);
+
 	}
+
 	public void estop() {
 		estop.oneShotMode();
 	}
+
 	public double getDriveStatus() {
 		return driveStatus[0];
 	}
-	
-	public void pickOrder(double material, double angle,double dropLocation) {
-		pickOrderData[0]=material;
-		pickOrderData[1]=angle;
-		pickOrderData[2]=dropLocation;
+
+	public void pickOrder(double material, double angle, double dropLocation) {
+		pickOrderData[0] = material;
+		pickOrderData[1] = angle;
+		pickOrderData[2] = dropLocation;
 		writeFloats(pickOrder.idOfCommand, pickOrderData);
 		pickOrder.oneShotMode();
 
@@ -174,28 +173,25 @@ public class RBE2001Robot extends UdpDevice {
 	public WarehouseRobotStatus getStatus() {
 		return WarehouseRobotStatus.fromValue(status[0]);
 	}
-	
+
 	public void clearFaults() {
 		clearFaults.oneShotMode();
 
 	}
+
 	public void approve() {
 		approve.oneShotMode();
 
 	}
+
 	public double getCurrentSetpoint(int currentIndex) {
-		return currentSetpoint[currentIndex];
+		return piddata[1 + currentIndex * 2 + 0];
 	}
+
 	public double getCurrentPosition(int currentIndex) {
 		return piddata[1 + currentIndex * 2 + 1];
 	}
-	public double[] getCurrentSetpoints() {
-		return currentSetpoint;
-	}
 
-	public void setCurrentSetpoint(double currentSetpoint[]) {
-		this.currentSetpoint = currentSetpoint;
-	}
 
 	public int getMyNumPid() {
 		return myNumPid;
